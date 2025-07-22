@@ -14,15 +14,35 @@ def get_valid_input(prompt):
             return value
         except ValueError:
             print("Invalid input. Please enter a whole number.")
-            continue
 
 def max_attempts():
-    try:
-        attempts = int(input("How many attempts do you think you can clear it in?😏 "))
-        return attempts
-    except ValueError:
-        print("Invalid input. Please enter a whole number.")
+    while True:
+        print('''Attempt Category:
+        1. Easy (10 attempts)
+        2. Mediocre (5 attempts)
+        3. Hard (3 attempts)
+        or Custom Input''')
+        try:
+            difficulty_level = int(input("Select Difficulty Option (1/2/3/Custom Input) : "))
+            if difficulty_level in (1,2,3):
+                if difficulty_level == 1:
+                    attempts = 10
+                    return attempts
+                elif difficulty_level == 2:
+                    attempts = 5
+                    return attempts
+                else:
+                    attempts = 3
+                    return attempts
+            else:
+                try:
+                    attempts = int(input("How many attempts do you think you can clear it in?😏 "))
+                    return attempts
+                except ValueError:
+                    print("Invalid input. Please enter a whole number.")
 
+        except ValueError:
+            print("Invalid input. Please enter a whole number.")
 
 
 def get_range():
@@ -32,7 +52,7 @@ def get_range():
         if lower < upper:
             return lower, upper
         else:
-            print("Lower bound must be Higher then Upper! Try Again")
+            print("Lower bound must be Lower then Upper! Try Again")
 
 
 def play_guess_game():
@@ -59,17 +79,16 @@ def play_guess_game():
                 print("Provide Integer input only")
                 continue
 
+            counter += 1
+
             if user_input == guess_number:
                 print("-" * 45)
-                print("Nice job!")
-                counter += 1
+                print("Correct Guess! Nice job!")
                 break
             elif user_input < guess_number:
                 print("Wrong! Hint: Guess a Higher Number!!")
-                counter += 1
-            elif user_input > guess_number:
+            else:
                 print("Wrong! Hint: Try a smaller number >_<")
-                counter += 1
         print(f"Your total attempts: {counter}")
         try:
             continue_playing = input("Do you wish to continue (Y): ").strip().lower()
